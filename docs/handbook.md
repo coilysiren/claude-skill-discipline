@@ -92,6 +92,7 @@ Three size caps in `categories.yaml`, all with built-in defaults that apply when
 
 * `max_skill_md_lines` (default `500`) and `max_skill_md_bytes` (default `10000`) cap the SKILL.md file itself. Past either, agent harnesses degrade: the loader either refuses the file or drops it from context. Push detail into `<skill>/references/<topic>.md` files when a SKILL.md fills up. Reference files are not capped.
 * `max_description_bytes` (default `500`) caps the frontmatter `description` field. Every skill's description is loaded into every agent session for keyword matching, so descriptions are pure always-on context cost. 500 fits a canonical-name + one sentence of trigger phrasings; past that you're paying for padding.
+  * **Router/meta exception**: skills whose category declares `role: router` or `role: meta` get **2x** the cap (default 1000). Routers genuinely need wider keyword surface to fan out to all the skills they cross-link. The validator applies the multiplier automatically.
 
 ## 8. Cross-links
 

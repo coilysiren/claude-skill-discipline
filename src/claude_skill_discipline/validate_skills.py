@@ -320,10 +320,17 @@ def validate_skill(
 
     if spec.max_description_bytes > 0:
         desc_bytes = len(description.encode("utf-8"))
-        if desc_bytes > spec.max_description_bytes:
+        # Router and meta categories get 2x the cap. They genuinely need more
+        # keyword surface to fan out to the skills they route across.
+        role = cat.get("role")
+        effective_cap = spec.max_description_bytes
+        if role in {"router", "meta"}:
+            effective_cap *= 2
+        if desc_bytes > effective_cap:
+            role_note = f" (2x router/meta cap)" if role in {"router", "meta"} else ""
             report.fail(
                 f"{name}/SKILL.md: description is {desc_bytes} bytes, over the "
-                f"{spec.max_description_bytes}-byte cap. Every skill's description "
+                f"{effective_cap}-byte cap{role_note}. Every skill's description "
                 f"is loaded into every agent session, so descriptions are pure "
                 f"context burn. Tighten by moving procedure into the body, dropping "
                 f"redundant aliases, or splitting the skill."
