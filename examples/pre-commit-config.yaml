@@ -1,0 +1,15 @@
+# Example .pre-commit-config.yaml entry.
+#
+# Drop this block into your repo's .pre-commit-config.yaml (the file at the
+# root of the repo, the one pre-commit reads on every commit).
+#
+# Pin to a tag or commit SHA. The `rev:` is what makes the hook
+# reproducible across machines and CI.
+
+repos:
+  - repo: https://github.com/coilysiren/claude-skill-discipline
+    rev: v0.1.0   # pin to a release tag
+    hooks:
+      - id: skill-conventions
+      - id: dead-cross-links
+      - id: commit-closes-issue
