@@ -136,7 +136,9 @@ def check_file(md_path: Path) -> list[str]:
     return violations
 
 
-def main(argv: list[str]) -> int:
+def main(argv: list[str] | None = None) -> int:
+    if argv is None:
+        argv = sys.argv
     if len(argv) > 1:
         roots = [Path(a).resolve() for a in argv[1:]]
     else:
@@ -160,4 +162,4 @@ def main(argv: list[str]) -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    sys.exit(main())

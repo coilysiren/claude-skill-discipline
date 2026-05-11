@@ -25,7 +25,7 @@ In your consumer repo, add this block to `.pre-commit-config.yaml`:
 ```yaml
 repos:
   - repo: https://github.com/coilysiren/claude-skill-discipline
-    rev: v0.1.0
+    rev: v0.2.0
     hooks:
       - id: skill-conventions
       - id: dead-cross-links
@@ -50,8 +50,10 @@ Pin to a tag in `rev:`. Re-run `pre-commit autoupdate` periodically to pick up n
 
 ## Requirements
 
-* Python 3.10+ (stdlib + PyYAML).
-* [`pre-commit`](https://pre-commit.com/) in the consumer repo.
+* Python 3.10+ in the consumer repo. PyYAML is installed automatically by `pre-commit` into the hook's isolated venv.
+* [`pre-commit`](https://pre-commit.com/) installed in the consumer repo.
+
+Local development of the hooks themselves (this repo): `pip install -e .` puts `validate-skills`, `check-dead-links`, and `check-commit-closes-issue` on `$PATH`.
 
 ## License
 

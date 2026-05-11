@@ -67,9 +67,11 @@ def has_same_repo_ref(body: str, this: tuple[str, str] | None) -> bool:
     return False
 
 
-def main(argv: list[str]) -> int:
+def main(argv: list[str] | None = None) -> int:
+    if argv is None:
+        argv = sys.argv
     if len(argv) < 2:
-        sys.stderr.write("usage: check-commit-closes-issue.py <commit-msg-file>\n")
+        sys.stderr.write("usage: check-commit-closes-issue <commit-msg-file>\n")
         return 2
     raw = open(argv[1], encoding="utf-8").read()
     body = re.sub(r"(?m)^#.*\n?", "", raw).strip()
@@ -85,4 +87,4 @@ def main(argv: list[str]) -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    sys.exit(main())

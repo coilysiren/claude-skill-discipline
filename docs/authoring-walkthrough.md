@@ -48,8 +48,8 @@ Follow your project's voice rules (the ones in [`handbook.md`](handbook.md) sect
 Before staging:
 
 ```sh
-python3 hooks/validate_skills.py <skill-name>
-python3 hooks/check_dead_links.py .claude/skills/<skill-name>/
+pre-commit run skill-conventions --all-files
+pre-commit run dead-cross-links --all-files
 ```
 
 Both should exit 0. If they don't, fix the reported issues. The error messages name the line and the rule.

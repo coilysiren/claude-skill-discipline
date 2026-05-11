@@ -1,8 +1,8 @@
 - id: skill-conventions
   name: skill conventions
   description: Validate the structure of .claude/skills/ against .claude/skills/categories.yaml.
-  entry: python3 hooks/validate_skills.py
-  language: system
+  entry: validate-skills
+  language: python
   pass_filenames: false
   always_run: true
   stages: [pre-commit, pre-push]
@@ -10,8 +10,8 @@
 - id: dead-cross-links
   name: dead cross-links
   description: Validate that inline markdown links inside .claude/skills/ resolve to real files.
-  entry: python3 hooks/check_dead_links.py
-  language: system
+  entry: check-dead-links
+  language: python
   pass_filenames: false
   always_run: true
   stages: [pre-commit, pre-push]
@@ -19,6 +19,6 @@
 - id: commit-closes-issue
   name: commit closes a GitHub issue
   description: Reject commit messages without a GitHub closing keyword (closes/fixes/resolves #N) for an issue in the same repo.
-  entry: python3 hooks/check_commit_closes_issue.py
-  language: system
+  entry: check-commit-closes-issue
+  language: python
   stages: [commit-msg]

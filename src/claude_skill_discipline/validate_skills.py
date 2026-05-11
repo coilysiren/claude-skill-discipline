@@ -457,7 +457,9 @@ def run_global_checks(
         check_size_caps(skill_md, spec, report)
 
 
-def main(argv: list[str]) -> int:
+def main(argv: list[str] | None = None) -> int:
+    if argv is None:
+        argv = sys.argv
     if not SKILLS_DIR.is_dir():
         sys.stderr.write(f"validate_skills.py: {SKILLS_DIR} not found\n")
         return 2
@@ -490,4 +492,4 @@ def main(argv: list[str]) -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main(sys.argv))
+    sys.exit(main())
