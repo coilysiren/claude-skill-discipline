@@ -90,15 +90,15 @@ categories:
 # Each entry: {string, allowed_in: [<relative-path>, ...]}
 forbidden_body_strings: []
 
-# Hard caps on SKILL.md size. Past these, agent harnesses degrade or
-# eagerly drop the file from context.
+# Hard caps. All have built-in defaults; declare here only to override.
+# Set any cap to 0 to disable the check.
+#
+# - max_skill_md_lines (default 500): past this the harness loader degrades.
+# - max_skill_md_bytes (default 10000): same, by byte count.
+# - max_description_bytes (default 1200): cap on frontmatter `description`
+#   length. Descriptions load into every agent session for keyword matching,
+#   so they are pure always-on context cost. 1200 fits a packed canonical-
+#   name + 5-10 trigger phrasings without bloating the surface.
 max_skill_md_lines: 500
 max_skill_md_bytes: 10000
-
-# Optional cap on frontmatter `description` field length, in bytes.
-# Every skill's description is loaded into every agent session for
-# keyword matching, so descriptions are pure always-on context cost.
-# Comment out (or omit) to skip the check. A reasonable starting cap
-# is 1200, which fits a packed canonical-name + 5-10 trigger phrasings
-# without bloating the always-loaded surface.
-# max_description_bytes: 1200
+max_description_bytes: 1200

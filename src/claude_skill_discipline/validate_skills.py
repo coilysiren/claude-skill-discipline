@@ -40,6 +40,7 @@ SPEC_PATH = SKILLS_DIR / "categories.yaml"
 
 DEFAULT_MAX_LINES = 500
 DEFAULT_MAX_BYTES = 10_000
+DEFAULT_MAX_DESCRIPTION_BYTES = 1_200
 
 STATUS_LINE_RE = re.compile(
     r"^Status:\s+(?P<emoji>\S+)\s+(?P<kind>[A-Za-z]+)\s+\|\s+Last\s+(?P<freshness>updated|tested):\s+(?P<date>\d{4}-\d{2}-\d{2})\s*$"
@@ -72,9 +73,10 @@ class Spec:
         return int(self.raw.get("max_skill_md_bytes", DEFAULT_MAX_BYTES))
 
     @property
-    def max_description_bytes(self) -> int | None:
-        v = self.raw.get("max_description_bytes")
-        return int(v) if v is not None else None
+    def max_description_bytes(self) -> int:
+        """Cap on description length. 0 disables the check."""
+        v = self.raw.get("max_description_bytes", DEFAULT_MAX_DESCRIPTION_BYTES)
+        return int(v)
 
     @property
     def prefixes(self) -> list[str]:
@@ -316,7 +318,7 @@ def validate_skill(
         description = ""
     description = str(description).strip()
 
-    if spec.max_description_bytes is not None:
+    if spec.max_description_bytes > 0:
         desc_bytes = len(description.encode("utf-8"))
         if desc_bytes > spec.max_description_bytes:
             report.fail(
