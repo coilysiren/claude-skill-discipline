@@ -88,7 +88,10 @@ These are the writing conventions the rest of this handbook follows. The validat
 
 ## 7. Size caps
 
-`max_skill_md_lines: 500` and `max_skill_md_bytes: 10000` by default. Past either cap, agent harnesses degrade: the loader either refuses the file or drops it from context. Push detail into `<skill>/references/<topic>.md` files when a SKILL.md fills up. Reference files are not capped.
+Three optional caps in `categories.yaml`:
+
+* `max_skill_md_lines: 500` and `max_skill_md_bytes: 10000` cap the SKILL.md file itself. Past either, agent harnesses degrade: the loader either refuses the file or drops it from context. Push detail into `<skill>/references/<topic>.md` files when a SKILL.md fills up. Reference files are not capped.
+* `max_description_bytes` (optional, no default) caps the frontmatter `description` field. Every skill's description is loaded into every agent session for keyword matching, so descriptions are pure always-on context cost. A reasonable starting cap is 1200 - fits a packed canonical-name + 5-10 trigger phrasings without bloating the always-loaded surface. Omit the field to skip the check.
 
 ## 8. Cross-links
 

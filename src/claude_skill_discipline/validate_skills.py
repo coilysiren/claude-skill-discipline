@@ -72,6 +72,11 @@ class Spec:
         return int(self.raw.get("max_skill_md_bytes", DEFAULT_MAX_BYTES))
 
     @property
+    def max_description_bytes(self) -> int | None:
+        v = self.raw.get("max_description_bytes")
+        return int(v) if v is not None else None
+
+    @property
     def prefixes(self) -> list[str]:
         return [c["prefix"] for c in self.categories if c.get("kind") == "prefix"]
 
@@ -310,6 +315,17 @@ def validate_skill(
         report.fail(f"{name}/SKILL.md: frontmatter `description` is empty")
         description = ""
     description = str(description).strip()
+
+    if spec.max_description_bytes is not None:
+        desc_bytes = len(description.encode("utf-8"))
+        if desc_bytes > spec.max_description_bytes:
+            report.fail(
+                f"{name}/SKILL.md: description is {desc_bytes} bytes, over the "
+                f"{spec.max_description_bytes}-byte cap. Every skill's description "
+                f"is loaded into every agent session, so descriptions are pure "
+                f"context burn. Tighten by moving procedure into the body, dropping "
+                f"redundant aliases, or splitting the skill."
+            )
 
     desc_pat = cat.get("description_prefix_pattern")
     desc_exceptions = set(cat.get("description_prefix_exceptions") or [])
