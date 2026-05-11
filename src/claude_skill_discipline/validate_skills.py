@@ -40,7 +40,7 @@ SPEC_PATH = SKILLS_DIR / "categories.yaml"
 
 DEFAULT_MAX_LINES = 500
 DEFAULT_MAX_BYTES = 10_000
-DEFAULT_MAX_DESCRIPTION_BYTES = 1_200
+DEFAULT_MAX_DESCRIPTION_BYTES = 500
 
 STATUS_LINE_RE = re.compile(
     r"^Status:\s+(?P<emoji>\S+)\s+(?P<kind>[A-Za-z]+)\s+\|\s+Last\s+(?P<freshness>updated|tested):\s+(?P<date>\d{4}-\d{2}-\d{2})\s*$"

@@ -25,7 +25,7 @@ In your consumer repo, add this block to `.pre-commit-config.yaml`:
 ```yaml
 repos:
   - repo: https://github.com/coilysiren/claude-skill-discipline
-    rev: v0.4.0
+    rev: v0.5.0
     hooks:
       - id: skill-conventions
       - id: dead-cross-links
