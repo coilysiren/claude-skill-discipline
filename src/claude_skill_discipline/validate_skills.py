@@ -79,6 +79,16 @@ class Spec:
         return int(v)
 
     @property
+    def archive_path_components(self) -> list[str]:
+        """Path components that mark a frozen-archive sub-tree. Any .md whose
+        path contains one of these is skipped from the size-cap check, because
+        archives are loaded by name on revisit rather than on trigger - the
+        loader doesn't read them, so the cap doesn't earn its keep there.
+        Default empty (no exemption). Example: ['results']."""
+        v = self.raw.get("archive_path_components") or []
+        return [str(p) for p in v]
+
+    @property
     def prefixes(self) -> list[str]:
         return [c["prefix"] for c in self.categories if c.get("kind") == "prefix"]
 
@@ -425,6 +435,12 @@ def validate_skill(
 
 
 def check_size_caps(md_path: Path, spec: Spec, report: Report) -> None:
+    # Frozen-archive exemption. Paths under any configured archive component
+    # are loaded by name on revisit, not by the loader on trigger, so the cap
+    # earns nothing there.
+    archive_parts = set(spec.archive_path_components)
+    if archive_parts and archive_parts.intersection(md_path.parts):
+        return
     n_lines = sum(1 for _ in md_path.open())
     if n_lines > spec.max_lines:
         report.fail(
