@@ -17,6 +17,7 @@ Exits 0 on success, 1 on any failure with a per-violation report on stderr.
 
 from __future__ import annotations
 
+import argparse
 import re
 import sys
 from dataclasses import dataclass, field
@@ -485,15 +486,42 @@ def run_global_checks(
 def main(argv: list[str] | None = None) -> int:
     if argv is None:
         argv = sys.argv
+
+    parser = argparse.ArgumentParser(
+        prog="validate-skills",
+        description="Validate the structure of a repo's skill directory.",
+    )
+    parser.add_argument(
+        "--skills-dir",
+        default=".claude/skills",
+        help="Path to the skills directory (relative to the repo root). "
+        "Default: .claude/skills",
+    )
+    parser.add_argument(
+        "--report-only",
+        action="store_true",
+        help="Exit 0 even if there are failures (the report still prints).",
+    )
+    parser.add_argument(
+        "names",
+        nargs="*",
+        help="Optional list of skill names to validate. When empty, all "
+        "skills are validated.",
+    )
+    ns = parser.parse_args(argv[1:])
+
+    # Mutate the module globals so the rest of the validator's call graph
+    # (which references SKILLS_DIR / SPEC_PATH directly) sees the override.
+    global SKILLS_DIR, SPEC_PATH
+    SKILLS_DIR = (REPO_ROOT / ns.skills_dir).resolve()
+    SPEC_PATH = SKILLS_DIR / "categories.yaml"
+
     if not SKILLS_DIR.is_dir():
         sys.stderr.write(f"validate_skills.py: {SKILLS_DIR} not found\n")
         return 2
 
-    args = argv[1:]
-    report_only = False
-    if "--report-only" in args:
-        report_only = True
-        args = [a for a in args if a != "--report-only"]
+    report_only = ns.report_only
+    args = ns.names
 
     spec = load_spec()
     report = Report()

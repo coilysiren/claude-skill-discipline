@@ -36,6 +36,19 @@ Then create `.claude/skills/categories.yaml` (start from [`examples/categories.y
 
 `pre-commit install` once, then every commit goes through the hooks. CI invokes `pre-commit run --all-files` the same way.
 
+### Custom skills directory
+
+If your repo keeps skills somewhere other than `.claude/skills/` (e.g. `.agents/skills/`), pass `--skills-dir` to each hook via `args:`:
+
+```yaml
+- id: skill-conventions
+  args: [--skills-dir, .agents/skills]
+- id: dead-cross-links
+  args: [--skills-dir, .agents/skills]
+```
+
+`categories.yaml` is read from inside the resolved skills directory, so no separate config is needed for the spec location.
+
 ## Versioning
 
 Tags follow semver. Breaking changes to the spec format or the validator rules mean a major bump. New optional checks, new spec fields, or bug fixes are minor or patch.

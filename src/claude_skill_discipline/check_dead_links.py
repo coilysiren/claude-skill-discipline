@@ -24,6 +24,7 @@ Exits 0 on clean, 1 with per-violation report on stderr.
 
 from __future__ import annotations
 
+import argparse
 import re
 import sys
 from pathlib import Path
@@ -139,8 +140,30 @@ def check_file(md_path: Path) -> list[str]:
 def main(argv: list[str] | None = None) -> int:
     if argv is None:
         argv = sys.argv
-    if len(argv) > 1:
-        roots = [Path(a).resolve() for a in argv[1:]]
+
+    parser = argparse.ArgumentParser(
+        prog="check-dead-links",
+        description="Find dead cross-links inside the skills directory.",
+    )
+    parser.add_argument(
+        "--skills-dir",
+        default=".claude/skills",
+        help="Path to the skills directory (relative to the repo root). "
+        "Default: .claude/skills. Ignored when positional paths are given.",
+    )
+    parser.add_argument(
+        "paths",
+        nargs="*",
+        help="Optional list of paths to scope the dead-link check to. "
+        "When empty, the entire --skills-dir is walked.",
+    )
+    ns = parser.parse_args(argv[1:])
+
+    global SKILLS_DIR
+    SKILLS_DIR = (REPO_ROOT / ns.skills_dir).resolve()
+
+    if ns.paths:
+        roots = [Path(a).resolve() for a in ns.paths]
     else:
         if not SKILLS_DIR.is_dir():
             sys.stderr.write(f"check_dead_links.py: {SKILLS_DIR} not found\n")
