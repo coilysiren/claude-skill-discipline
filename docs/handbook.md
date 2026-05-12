@@ -94,6 +94,17 @@ Three size caps in `categories.yaml`, all with built-in defaults that apply when
 * `max_description_bytes` (default `500`) caps the frontmatter `description` field. Every skill's description is loaded into every agent session for keyword matching, so descriptions are pure always-on context cost. 500 fits a canonical-name + one sentence of trigger phrasings; past that you're paying for padding.
   * **Router/meta exception**: skills whose category declares `role: router` or `role: meta` get **2x** the cap (default 1000). Routers genuinely need wider keyword surface to fan out to all the skills they cross-link. The validator applies the multiplier automatically.
 
+### Frozen-archive exemption
+
+`archive_path_components` (default `[]`) lists path components that mark a frozen archive. Any `.md` whose path contains one of these is skipped from the size caps — but only the size caps. Stale-ref, forbidden-body-string, and frontmatter checks still apply.
+
+The motivation: investigation writeups, per-incident case libraries, and ticket-stamped diagnoses are loaded by name when an agent revisits the incident, not by the loader on trigger. Forcing splits on a 28KB rollout analysis destroys narrative for zero loader benefit. The convention this enables: park frozen content under a directory whose name is in the list (`results/`, `archive/`, etc.) and the cap stops applying.
+
+```yaml
+archive_path_components:
+  - results
+```
+
 ## 8. Cross-links
 
 Two valid forms for in-prose references to other skills:

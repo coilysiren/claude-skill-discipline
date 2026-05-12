@@ -26,6 +26,19 @@
 #   section_lead_lines:    map of {section_name: regex} - first non-blank
 #                          line of the section must match.
 #   forbidden_names:       skills that MUST NOT exist under this prefix.
+#
+# Top-level fields (optional):
+#   max_skill_md_lines / max_skill_md_bytes: override the 500 / 10_000 caps.
+#   max_description_bytes: override the 500-byte description cap (0 disables).
+#   archive_path_components: list of path components that mark frozen-archive
+#     sub-trees. Any .md whose path contains one of these is skipped from
+#     size-cap checks (still validated for stale refs etc.). Archives are
+#     loaded by name on revisit, not on trigger, so the cap earns nothing
+#     there. Default empty. Example: ['results'].
+
+# Example archive exemption (uncomment in your consumer if you use one):
+# archive_path_components:
+#   - results
 
 categories:
 
