@@ -3,3 +3,16 @@
 # across coilysiren/* checkouts. Add verbs here as they emerge.
 
 commands: {}
+
+# Catalog metadata for the cross-repo knowledge graph.
+# Schema: coilysiren/coilyco-ai#420 (tracker).
+catalog:
+  kind: Component
+  type: tool
+  system: coily-platform
+  owner: kai
+  lifecycle: production
+  description: "Pre-commit hooks for Claude Code skill repositories. Small validators that catch the kinds of drift agent harnesses silently route around."
+  dependsOn: []
+  providesApis:
+    - claude-skill-precommit-hooks
