@@ -1,0 +1,4 @@
+[console_scripts]
+check-commit-closes-issue = claude_skill_discipline.check_commit_closes_issue:main
+check-dead-links = claude_skill_discipline.check_dead_links:main
+validate-skills = claude_skill_discipline.validate_skills:main

@@ -1,0 +1,13 @@
+LICENSE
+README.md
+pyproject.toml
+src/claude_skill_discipline/__init__.py
+src/claude_skill_discipline/check_commit_closes_issue.py
+src/claude_skill_discipline/check_dead_links.py
+src/claude_skill_discipline/validate_skills.py
+src/claude_skill_discipline.egg-info/PKG-INFO
+src/claude_skill_discipline.egg-info/SOURCES.txt
+src/claude_skill_discipline.egg-info/dependency_links.txt
+src/claude_skill_discipline.egg-info/entry_points.txt
+src/claude_skill_discipline.egg-info/requires.txt
+src/claude_skill_discipline.egg-info/top_level.txt

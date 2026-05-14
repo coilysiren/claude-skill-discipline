@@ -2,7 +2,10 @@
 # repocfg loader recognizes the repo and the lockdown discipline is uniform
 # across coilysiren/* checkouts. Add verbs here as they emerge.
 
-commands: {}
+commands:
+  build-native:
+    run: uv lock && uv sync
+    description: uv lock + uv sync.
 
 # Catalog metadata for the cross-repo knowledge graph.
 # Schema: coilysiren/coilyco-ai#420 (tracker).
