@@ -34,7 +34,7 @@ Exposed via [`.pre-commit-hooks.yaml`](../.pre-commit-hooks.yaml). Consumer repo
 
 - [README.md](../README.md) - human-facing intro and quickstart.
 
-Cross-reference convention from [coilysiren/coilyco-ai#313](https://github.com/coilysiren/coilyco-ai/issues/313). The worked example is [otel-a2a-relay/docs/FEATURES.md](https://github.com/coilysiren/otel-a2a-relay/blob/main/docs/FEATURES.md).
+Cross-reference convention from [coilysiren/agentic-os-kai#313](https://github.com/coilysiren/agentic-os-kai/issues/313). The worked example is [otel-a2a-relay/docs/FEATURES.md](https://github.com/coilysiren/otel-a2a-relay/blob/main/docs/FEATURES.md).
 
 ## See also
 
@@ -42,4 +42,4 @@ Cross-reference convention from [coilysiren/coilyco-ai#313](https://github.com/c
 - [AGENTS.md](../AGENTS.md) - agent-facing operating rules.
 - [.coily/coily.yaml](../.coily/coily.yaml) - allowlisted commands.
 
-Cross-reference convention from [coilysiren/coilyco-ai#313](https://github.com/coilysiren/coilyco-ai/issues/313).
+Cross-reference convention from [coilysiren/agentic-os-kai#313](https://github.com/coilysiren/agentic-os-kai/issues/313).
