@@ -1,5 +1,16 @@
 # claude-skill-discipline
 
+> **Deprecated.** This repo has been merged into [`coilysiren/agentic-os`](https://github.com/coilysiren/agentic-os).
+>
+> - **Scripts**: `validate-skills.py` and `check-dead-links.py` now live in [`coilysiren/agentic-os/scripts/`](https://github.com/coilysiren/agentic-os/tree/main/scripts). `check-commit-closes-issue.py` was already there.
+> - **Docs**: handbook + authoring walkthrough + examples + template moved to [`coilysiren/agentic-os/docs/skill-discipline/`](https://github.com/coilysiren/agentic-os/tree/main/docs/skill-discipline).
+> - **Rollout**: consumer repos receive stamped local copies via [`coilysiren/agentic-os-kai`](https://github.com/coilysiren/agentic-os-kai) using `make apply-skill-discipline-hooks`. No more `repo: https://github.com/coilysiren/claude-skill-discipline` block in `.pre-commit-config.yaml`.
+> - **Migration**: [agentic-os-kai#544](https://github.com/coilysiren/agentic-os-kai/issues/544).
+>
+> Pin at `v0.6.0` to keep this repo's hooks working in the meantime, but switch over when convenient. This repo will be archived once all consumers are migrated.
+
+---
+
 Pre-commit hooks for Claude Code skill repositories. Three small validators that catch the kinds of drift agent harnesses silently route around.
 
 ## What's in the box
