@@ -1,13 +1,6 @@
 # claude-skill-discipline
 
-> **Deprecated.** This repo has been merged into [`coilysiren/agentic-os`](https://github.com/coilysiren/agentic-os).
->
-> - **Scripts**: `validate-skills.py` and `check-dead-links.py` now live in [`coilysiren/agentic-os/scripts/`](https://github.com/coilysiren/agentic-os/tree/main/scripts). `check-commit-closes-issue.py` was already there.
-> - **Docs**: handbook + authoring walkthrough + examples + template moved to [`coilysiren/agentic-os/docs/skill-discipline/`](https://github.com/coilysiren/agentic-os/tree/main/docs/skill-discipline).
-> - **Rollout**: consumer repos receive stamped local copies via [`coilysiren/agentic-os-kai`](https://github.com/coilysiren/agentic-os-kai) using `make apply-skill-discipline-hooks`. No more `repo: https://github.com/coilysiren/claude-skill-discipline` block in `.pre-commit-config.yaml`.
-> - **Migration**: [agentic-os-kai#544](https://github.com/coilysiren/agentic-os-kai/issues/544).
->
-> Pin at `v0.6.0` to keep this repo's hooks working in the meantime, but switch over when convenient. This repo will be archived once all consumers are migrated.
+> **Deprecated.** Merged into [`coilysiren/agentic-os`](https://github.com/coilysiren/agentic-os) as a Python package + `.pre-commit-hooks.yaml`. Migration: [agentic-os-kai#544](https://github.com/coilysiren/agentic-os-kai/issues/544), [agentic-os#61](https://github.com/coilysiren/agentic-os/issues/61). Pin `v0.6.0` here to keep working in the meantime; this repo will be archived once all consumers are migrated.
 
 ---
 
@@ -74,19 +67,12 @@ Pin to a tag in `rev:`. Re-run `pre-commit autoupdate` periodically to pick up n
 
 ## Requirements
 
-* Python 3.10+ in the consumer repo. PyYAML is installed automatically by `pre-commit` into the hook's isolated venv.
-* [`pre-commit`](https://pre-commit.com/) installed in the consumer repo.
-
-Local development of the hooks themselves (this repo): `pip install -e .` puts `validate-skills`, `check-dead-links`, and `check-commit-closes-issue` on `$PATH`.
-
-## License
-
-MIT. See [`LICENSE`](LICENSE).
+Python 3.10+ + [pre-commit](https://pre-commit.com/) in the consumer repo. PyYAML is installed automatically into the hook venv. Local dev: `pip install -e .` puts the three entry-points on `$PATH`. License: MIT, see [`LICENSE`](LICENSE).
 
 ## See also
 
 - [AGENTS.md](AGENTS.md) - agent-facing operating rules.
 - [docs/FEATURES.md](docs/FEATURES.md) - inventory of what ships today.
-- [.coily/coily.yaml](.coily/coily.yaml) - allowlisted commands. Agents route through coily, not bare `make` / `uv` / `python` / `npm` / `cargo` / `dotnet`.
+- [.coily/coily.yaml](.coily/coily.yaml) - allowlisted commands.
 
-Cross-reference convention from [coilysiren/agentic-os-kai#313](https://github.com/coilysiren/agentic-os-kai/issues/313).
+Cross-reference convention from [coilysiren/agentic-os#59](https://github.com/coilysiren/agentic-os/issues/59).
